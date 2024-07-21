@@ -139,7 +139,7 @@ class Login extends Component {
             <MainDescription ratio={fsr}>{mainDescription}</MainDescription>
             <LowerDescription ratio={fsr}>{lowerDescription}</LowerDescription>
 
-            <a href="https://youtube-timer-fullstack.onrender.com/oauth/google">
+            <a href="https://sample-deployment-7sky.onrender.com/oauth/google">
               <GetStartedButton ratio={fsr}>Get Started</GetStartedButton>
             </a>
           </LoginContainer>

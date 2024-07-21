@@ -64,6 +64,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  console.log("Session ID:", req.sessionID);
+  console.log("Session Data:", req.session);
+  next();
+});
+
 // Configuring Google OAuth 2.0 Strategy for Passport
 passport.use(
   new GoogleStrategy(
