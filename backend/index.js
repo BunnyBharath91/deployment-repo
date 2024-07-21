@@ -270,6 +270,9 @@ const ensureAuthenticated = (request, response, next) => {
 };
 
 const ensureAuthenticatedForFrontend = (request, response, next) => {
+  console.log("User: ", request.user);
+  console.log("request cookie:", request.headers.cookie);
+  console.log("Request obj:", request);
   if (request.isAuthenticated()) {
     return next();
   }
@@ -344,8 +347,6 @@ app.get("/logout", async (request, response) => {
 
 // Check authentication status
 app.get("/oauth/status", ensureAuthenticatedForFrontend, (req, res) => {
-  console.log("User: ", req.user);
-  console.log('request cookie:',req.headers.cookie)
   res.send({ authenticated: true, user: req.user });
 });
 
