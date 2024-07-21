@@ -860,9 +860,14 @@ app.post("/upload-video", async (req, res) => {
 });
 
 app.get("/session-details", async (request, response) => {
-  const dbRequest = `
-    SELECT * FROM sessions;
-    `;
-  const dbResponse = await db.all(dbRequest);
-  response.send(dbResponse);
+  try {
+    // Assuming `db` is properly initialized and connected to your SQLite database
+    const dbRequest = `SELECT * FROM sessions;`;
+    const dbResponse = await db.all(dbRequest);
+    response.send(dbResponse);
+    console.log(dbResponse);
+  } catch (error) {
+    console.error("Error fetching session details:", error);
+    response.status(500).send({ error: "Failed to retrieve session details" });
+  }
 });
