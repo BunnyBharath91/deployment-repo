@@ -269,6 +269,14 @@ const ensureAuthenticated = (request, response, next) => {
   response.redirect("/oauth/google"); // Redirect to Google OAuth if not authenticated
 };
 
+const ensureAuthenticatedForFrontend = (request, response, next) => {
+  if (request.isAuthenticated()) {
+    return next();
+  }
+
+  response.send({ authenticated: false });
+};
+
 // Function to get new access token using refresh token
 const getNewAccessToken = async (refreshToken) => {
   const url = "https://oauth2.googleapis.com/token";
@@ -335,13 +343,9 @@ app.get("/logout", async (request, response) => {
 });
 
 // Check authentication status
-app.get("/oauth/status", (req, res) => {
-    console.log(req.user)
-  if (req.isAuthenticated()) {
-    res.send({ authenticated: true, user: req.user });
-  } else {
-    res.send({ authenticated: false });
-  }
+app.get("/oauth/status", ensureAuthenticatedForFrontend, (req, res) => {
+  console.log("User: ", req.user);
+  res.send({ authenticated: true, user: req.user });
 });
 
 // Request video upload
