@@ -40,12 +40,14 @@ const store = new SQLiteStore({
 app.use(
   session({
     store: store,
-    secret: process.env.KEY, //Secret key used for session encryption
+    secret: process.env.KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: true, // Set to true in production for HTTPS
-      maxAge: 30 * 24 * 60 * 60 * 1000, // Session valid for 30 days
+      secure: true, // true for HTTPS
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      path: "/", // Accessible throughout your domain
+      sameSite: "None", // Allow cross-site requests
     },
   })
 );
