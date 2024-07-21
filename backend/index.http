@@ -25,6 +25,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/video-access-token 
+GET http://localhost:5000/session-details
 Content-Type: application/json 
+
+
 

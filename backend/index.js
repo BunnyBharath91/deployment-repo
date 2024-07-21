@@ -31,9 +31,39 @@ app.use(
   })
 );
 
+// Path to sessions database
+const sessionDBPath = path.join(__dirname, "database", "sessions.db");
+
+let db = null;
+// Initialize SQLite database and create sessions table if it doesn't exist
+async function initializeSessionDatabase() {
+  try {
+    db = await open({
+      filename: sessionDBPath,
+      driver: sqlite3.Database,
+    });
+
+    // Create sessions table if it does not exist
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS sessions (
+        sid TEXT PRIMARY KEY,
+        expires INTEGER,
+        sess TEXT
+      );
+    `);
+
+    console.log("Session database initialized");
+  } catch (error) {
+    console.error("Error initializing session database:", error);
+    throw error; // Re-throw to handle it in the calling context
+  }
+}
+
+initializeSessionDatabase();
+
 // Configuring session management using SQLite as session store
 const store = new SQLiteStore({
-  db: "sessions.sqlite", // SQLite database file for storing sessions
+  db: "sessions.db", // SQLite database file for storing sessions
   table: "sessions", // Table name for storing session data
   dir: path.join(__dirname, "database"), // Directory to save '.db' file
   createDirIfNotExists: true, // Create directory if it doesn't exist
@@ -48,7 +78,6 @@ app.use(
     cookie: {
       secure: false, // Set to true in production for HTTPS
       maxAge: 30 * 24 * 60 * 60 * 1000, // Session valid for 30 days
-      sameSite: "lax", // Allow cookies to be sent with some cross-site requests
     },
   })
 );
