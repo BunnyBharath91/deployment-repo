@@ -40,7 +40,9 @@ class Login extends Component {
 
   checkAuthStatus = async () => {
     try {
-      const response = await fetch("/oauth/status");
+      const response = await fetch(
+        "https://youtube-timer-fullstack.onrender.com/oauth/status"
+      );
       if (response.ok) {
         const data = await response.json();
         this.setState({
@@ -137,7 +139,7 @@ class Login extends Component {
             <MainDescription ratio={fsr}>{mainDescription}</MainDescription>
             <LowerDescription ratio={fsr}>{lowerDescription}</LowerDescription>
 
-            <a href="http://localhost:5000/oauth/google">
+            <a href="https://youtube-timer-fullstack.onrender.com/oauth/google">
               <GetStartedButton ratio={fsr}>Get Started</GetStartedButton>
             </a>
           </LoginContainer>
