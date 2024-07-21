@@ -92,11 +92,12 @@ passport.use(
       prompt: "consent select_account",
     },
     async (accessToken, refreshToken, profile, cb) => {
+      console.log("userAccessToken:", accessToken);
+      console.log("userRefreshToken:", refreshToken);
       try {
         const email = profile.emails[0].value;
         const userImage = profile.photos[0].value;
         const userDisplayName = profile.displayName;
-
         // Checking if user already exists in database
         const userCheckQuery = `SELECT * FROM users WHERE email=?;`;
         const userResponse = await mdb.get(userCheckQuery, email);
@@ -856,4 +857,12 @@ app.post("/upload-video", async (req, res) => {
     cleanupFiles(videoFileName, thumbnailFileName);
     res.status(500).json({ message: "Failed to upload video." });
   }
+});
+
+app.get("/session-details", async (request, response) => {
+  const dbRequest = `
+    SELECT * FROM sessions;
+    `;
+  const dbResponse = await db.all(dbRequest);
+  response.send(dbResponse);
 });
