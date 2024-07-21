@@ -336,6 +336,7 @@ app.get("/logout", async (request, response) => {
 
 // Check authentication status
 app.get("/oauth/status", (req, res) => {
+    console.log(req.user)
   if (req.isAuthenticated()) {
     res.send({ authenticated: true, user: req.user });
   } else {
