@@ -871,3 +871,15 @@ app.get("/session-details", async (request, response) => {
     response.status(500).send({ error: "Failed to retrieve session details" });
   }
 });
+
+app.get("/sample-user-details", async (request, response) => {
+  try {
+    const dbRequest = `SELECT * FROM users;`;
+    const dbResponse = await mdb.all(dbRequest);
+    response.send(dbResponse);
+    console.log("user details", dbResponse);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    response.status(500).send({ error: "Failed to retrieve user details" });
+  }
+});
