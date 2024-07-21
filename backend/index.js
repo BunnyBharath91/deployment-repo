@@ -33,7 +33,7 @@ app.use(
 
 // Configuring session management using SQLite as session store
 const store = new SQLiteStore({
-  db: "sessions.db", // SQLite database file for storing sessions
+  db: "sessions.sqlite", // SQLite database file for storing sessions
   table: "sessions", // Table name for storing session data
   dir: path.join(__dirname, "database"), // Directory to save '.db' file
   createDirIfNotExists: true, // Create directory if it doesn't exist
