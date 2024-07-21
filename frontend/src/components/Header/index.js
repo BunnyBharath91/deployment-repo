@@ -60,7 +60,9 @@ class Header extends Component {
   }
 
   getUserDetails = async () => {
-    const response = await fetch("/user/details");
+    const response = await fetch(
+      "https://sample-deployment-7sky.onrender.com/user/details"
+    );
     if (response.ok) {
       const finalData = await response.json();
       console.log("final Data: ", finalData);

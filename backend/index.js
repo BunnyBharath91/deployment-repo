@@ -345,6 +345,7 @@ app.get("/logout", async (request, response) => {
 // Check authentication status
 app.get("/oauth/status", ensureAuthenticatedForFrontend, (req, res) => {
   console.log("User: ", req.user);
+  console.log('request cookie:',req.headers.cookie)
   res.send({ authenticated: true, user: req.user });
 });
 
