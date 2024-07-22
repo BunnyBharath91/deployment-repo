@@ -18,7 +18,7 @@ class ProtectedRoute extends Component {
   checkAuthStatus = async () => {
     try {
       const response = await fetch(
-        "https://sample-deployment-7sky.onrender.com/oauth/status",
+        `${process.env.REACT_APP_BACKEND_URL}/oauth/status`,
         {
           method: "GET",
           credentials: "include", // Include cookies with the request

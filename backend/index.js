@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-enc
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests from frontend running on localhost:3000
+    origin:["http://localhost:3000","https://sample-deployment-frontend.onrender.com/"] , // Allow requests from frontend running on localhost:3000
     methods: "GET,POST,PUT,DELETE",
     credentials: true, // Allow credentials (cookies, authorization headers)
   })
