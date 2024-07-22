@@ -19,6 +19,8 @@ import {
   UpperDescription,
   MainDescription,
   LowerDescription,
+  StyledAnchorTag,
+  StyledArrow,
   GetStartedButton,
 } from "./styledComponents";
 import { loginSectionContent } from "./languageContent";
@@ -41,7 +43,11 @@ class Login extends Component {
   checkAuthStatus = async () => {
     try {
       const response = await fetch(
-        "https://youtube-timer-fullstack.onrender.com/oauth/status"
+        "https://sample-deployment-7sky.onrender.com/oauth/status",
+        {
+          method: "GET",
+          credentials: "include", // Include cookies with the request
+        }
       );
       if (response.ok) {
         const data = await response.json();
@@ -108,7 +114,10 @@ class Login extends Component {
               {contact}
             </HeaderItem>
             <HeaderItem ratio={fsr}>
-              <AnchorTag href="http://localhost:5000/oauth/google" sUl={sUl}>
+              <AnchorTag
+                href="https://sample-deployment-7sky.onrender.com/oauth/google"
+                sUl={sUl}
+              >
                 <SignInButton className="sign-in-button" outline ratio={fsr}>
                   <SignInUserImg />
                   {signIn}
@@ -120,7 +129,7 @@ class Login extends Component {
 
               <MenuContainer show={showMenuContainer} ratio={fsr}>
                 <MenuItem className="menu-item menu-sign-in-item">
-                  <a href="http://localhost:5000/oauth/google">
+                  <a href="https://sample-deployment-7sky.onrender.com/oauth/google">
                     <SignInButton className="sign-in-button">
                       {signIn}
                     </SignInButton>
@@ -139,9 +148,11 @@ class Login extends Component {
             <MainDescription ratio={fsr}>{mainDescription}</MainDescription>
             <LowerDescription ratio={fsr}>{lowerDescription}</LowerDescription>
 
-            <a href="https://sample-deployment-7sky.onrender.com/oauth/google">
-              <GetStartedButton ratio={fsr}>Get Started</GetStartedButton>
-            </a>
+            <StyledAnchorTag href="https://sample-deployment-7sky.onrender.com/oauth/google">
+              <GetStartedButton ratio={fsr}>
+                Get Started <StyledArrow />
+              </GetStartedButton>
+            </StyledAnchorTag>
           </LoginContainer>
         </div>
       </>
