@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-enc
 
 app.use(
   cors({
-    origin:["http://localhost:3000","https://sample-deployment-frontend.onrender.com/"] , // Allow requests from frontend running on localhost:3000
+    origin:["http://localhost:3000","https://sample-deployment-frontend.onrender.com"] , // Allow requests from frontend running on localhost:3000
     methods: "GET,POST,PUT,DELETE",
     credentials: true, // Allow credentials (cookies, authorization headers)
   })
@@ -88,7 +88,7 @@ app.use(passport.session()); //integrating Passport.js with express-session to h
 
 // Middleware to set CORS headers for frontend communication
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // updating match the domain  will make the request from
+  res.header("Access-Control-Allow-Origin", "https://sample-deployment-frontend.onrender.com"); // updating match the domain  will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -210,10 +210,10 @@ app.get(
 app.get(
   "/oauth/redirect",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000/login",
+    failureRedirect: "https://sample-deployment-frontend.onrender.com/login",
   }),
   async (request, response) => {
-    response.redirect("http://localhost:3000");
+    response.redirect("https://sample-deployment-frontend.onrender.com");
   }
 );
 
