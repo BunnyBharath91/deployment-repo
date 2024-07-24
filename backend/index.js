@@ -23,9 +23,14 @@ app.use(express.json()); // Middleware to parse JSON payloads
 
 app.use(express.urlencoded({ extended: false })); // Middleware to parse URL-encoded payloads
 
+app.set("trust proxy", true);
+
 app.use(
   cors({
-    origin:["http://localhost:3000","https://sample-deployment-frontend.onrender.com"] , // Allow requests from frontend running on localhost:3000
+    origin: [
+      "http://localhost:3000",
+      "https://sample-deployment-frontend.onrender.com",
+    ], // Allow requests from frontend running on localhost:3000
     methods: "GET,POST,PUT,DELETE",
     credentials: true, // Allow credentials (cookies, authorization headers)
   })
@@ -72,12 +77,15 @@ const store = new SQLiteStore({
 app.use(
   session({
     store: store,
-    secret: process.env.KEY, //Secret key used for session encryption
-    resave: false,
-    saveUninitialized: false,
+    secret: process.env.KEY,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
-      secure: false, // Set to true in production for HTTPS
+      httpOnly: true,
+      secure: true, // Set to true in production for HTTPS
+      sameSite: "none",
       maxAge: 30 * 24 * 60 * 60 * 1000, // Session valid for 30 days
+      domain: "sample-deployment-frontend.onrender.com", // Corrected placement
     },
   })
 );
@@ -88,7 +96,10 @@ app.use(passport.session()); //integrating Passport.js with express-session to h
 
 // Middleware to set CORS headers for frontend communication
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://sample-deployment-frontend.onrender.com"); // updating match the domain  will make the request from
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://sample-deployment-frontend.onrender.com"
+  ); // updating match the domain  will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
