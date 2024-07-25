@@ -17,7 +17,7 @@ const cors = require("cors");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
 
-const app = express();
+const app = express(); //express instance
 
 app.use(express.json()); // Middleware to parse JSON payloads
 
